@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genres | BookHouse</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>📚 Explore Genres</h1></header>
+<main class="grid" id="genres"></main>
+
+<script>
+  const genres = ["Fiction", "Poetry", "Drama", "Biography", "Philosophy", "Mystery"];
+  const container = document.getElementById("genres");
+
+  genres.forEach(g => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `<h2>${g}</h2>`;
+    div.onclick = () => location.href = `books.html?genre=${encodeURIComponent(g)}`;
+    container.appendChild(div);
+  });
+</script>
+</body>
+</html>

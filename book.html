@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Details | BookHouse</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <button onclick="history.back()" class="back-btn">←</button>
+  <h1>Book Details</h1>
+</header>
+
+<main class="detail" id="bookDetail">Loading...</main>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const id = params.get("id");
+
+  fetch("https://cjagroxccgawxxehdode.supabase.co/functions/v1/getBooks")
+    .then(r => r.json())
+    .then(res => {
+      const book = res.books.find(b => b.id == id);
+      const container = document.getElementById("bookDetail");
+      if (!book) {
+        container.innerHTML = "<p>Book not found.</p>";
+        return;
+      }
+      container.innerHTML = `
+        <img src="${book.cover_url || 'https://placehold.co/250x350'}" class="cover" alt="${book.title}">
+        <h2>${book.title}</h2>
+        <p><strong>Author:</strong> ${book.author}</p>
+        <p><strong>Published:</strong> ${book.published_at}</p>
+        <p><em>${book.description || "No description available."}</em></p>
+      `;
+    });
+</script>
+</body>
+</html>
