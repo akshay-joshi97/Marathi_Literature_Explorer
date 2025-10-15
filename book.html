@@ -8,33 +8,51 @@
 </head>
 <body>
 <header>
-  <button onclick="history.back()" class="back-btn">←</button>
-  <h1>Book Details</h1>
+  <h1>📖 Book Details</h1>
 </header>
 
-<main class="detail" id="bookDetail">Loading...</main>
+<main class="book-detail-container">
+  <div class="book-card">
+    <img id="book-thumbnail" src="" alt="Book Cover">
+    <h2 id="book-title"></h2>
+    <h3 id="book-author"></h3>
+    <p><strong>Publisher:</strong> <span id="book-publisher"></span></p>
+    <p><strong>Genre:</strong> <span id="book-genre"></span></p>
+    <p><strong>Published:</strong> <span id="book-published"></span></p>
+    <p><strong>Pages:</strong> <span id="book-pagecount"></span></p>
+    <p><strong>Description:</strong> <span id="book-description"></span></p>
+    <p><strong>Preview:</strong> <a id="book-preview" href="#" target="_blank">View on Google Books</a></p>
+    <button onclick="goBack()">⬅ Back to Books</button>
+  </div>
+</main>
 
 <script>
-  const params = new URLSearchParams(location.search);
-  const id = params.get("id");
+  function goBack() {
+    window.history.back();
+  }
 
-  fetch("https://cjagroxccgawxxehdode.supabase.co/functions/v1/getBooks")
-    .then(r => r.json())
-    .then(res => {
-      const book = res.books.find(b => b.id == id);
-      const container = document.getElementById("bookDetail");
-      if (!book) {
-        container.innerHTML = "<p>Book not found.</p>";
-        return;
-      }
-      container.innerHTML = `
-        <img src="${book.cover_url || 'https://placehold.co/250x350'}" class="cover" alt="${book.title}">
-        <h2>${book.title}</h2>
-        <p><strong>Author:</strong> ${book.author}</p>
-        <p><strong>Published:</strong> ${book.published_at}</p>
-        <p><em>${book.description || "No description available."}</em></p>
-      `;
-    });
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookData = {
+    title: urlParams.get("title"),
+    author: urlParams.get("author"),
+    publisher: urlParams.get("publisher"),
+    genre: urlParams.get("genre"),
+    published_date: urlParams.get("published_date"),
+    page_count: urlParams.get("page_count"),
+    description: urlParams.get("description"),
+    preview_link: urlParams.get("preview_link"),
+    image_link: urlParams.get("image_link")
+  };
+
+  document.getElementById("book-thumbnail").src = bookData.image_link || "placeholder.jpg";
+  document.getElementById("book-title").innerText = bookData.title;
+  document.getElementById("book-author").innerText = bookData.author;
+  document.getElementById("book-publisher").innerText = bookData.publisher;
+  document.getElementById("book-genre").innerText = bookData.genre;
+  document.getElementById("book-published").innerText = bookData.published_date;
+  document.getElementById("book-pagecount").innerText = bookData.page_count;
+  document.getElementById("book-description").innerText = bookData.description;
+  document.getElementById("book-preview").href = bookData.preview_link;
 </script>
 </body>
 </html>
