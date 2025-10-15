@@ -249,3 +249,42 @@ header > *:last-child { animation-delay: 0.6s; }
     background-attachment: scroll; /* disable parallax on mobile for performance */
   }
 }
+
+/* Books Page Header as top banner */
+.books-header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 20vh; /* initial height ~20% of viewport */
+  background: linear-gradient(rgba(42,93,159,0.85), rgba(42,93,159,0.95));
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* Shrink header on scroll */
+.books-header.shrink {
+  height: 8vh; /* shrinked height */
+  font-size: 1.2rem; /* smaller text */
+}
+
+.books-header h1 {
+  margin: 0;
+}
+
+/* Grid spacing so content doesn't overlap header */
+#books-container {
+  padding-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+  max-width: 1000px;
+}

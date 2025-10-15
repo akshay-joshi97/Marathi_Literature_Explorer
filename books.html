@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>📚 Books</h1>
+<header class="books-header">
+  <h1 id="books-genre"></h1>
 </header>
 
 <div class="nav-btn-container">
@@ -18,10 +18,26 @@
 <main class="grid" id="books-container"></main>
 
 <script>
-  const container = document.getElementById("books-container");
+  const genreMapping = {
+    "Drama": "नाटक",
+    "Poetry": "कविता",
+    "Novels": "कादंबरी",
+    "Short Stories": "लघुकथा",
+    "Satire": "विनोद / व्यंग",
+    "Historical": "ऐतिहासिक",
+    "Literary Criticism": "साहित्य समीक्षा",
+    "Children": "बालसाहित्य"
+  };
 
+  // Get the genre from URL params (only once)
   const params = new URLSearchParams(window.location.search);
-  const genre = params.get("genre");
+  const genre = params.get("genre") || "";
+  const marathiGenre = genreMapping[genre] || "";
+
+  // Set header
+  document.getElementById("books-genre").innerText = `${marathiGenre} | ${genre}`;
+
+  const container = document.getElementById("books-container");
 
   async function fetchBooksByGenre(genreName) {
     try {
@@ -44,7 +60,7 @@
         `;
 
         div.onclick = () => {
-          const params = new URLSearchParams({
+          const bookParams = new URLSearchParams({
             title: book.title,
             author: book.author,
             publisher: book.publisher,
@@ -56,7 +72,7 @@
             image_link: book.image_link
           }).toString();
 
-          window.location.href = `book.html?${params}`;
+          window.location.href = `book.html?${bookParams}`;
         };
 
         container.appendChild(div);
@@ -73,6 +89,17 @@
   } else {
     container.innerHTML = `<p style="text-align:center; grid-column: span 4;">No genre selected.</p>`;
   }
+
+  const header = document.querySelector(".books-header");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) { // start shrinking after 50px scroll
+    header.classList.add("shrink");
+  } else {
+    header.classList.remove("shrink");
+  }
+});
+
 </script>
 </body>
 </html>
