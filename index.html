@@ -1,26 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genres | BookHouse</title>
+  <title>Marathi Genres | BookHouse</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><h1>📚 Explore Genres</h1></header>
+
+<header>📚 मराठी साहित्य</header>
+
 <main class="grid" id="genres"></main>
 
+<footer>© 2025 BookHouse</footer>
+
 <script>
-  const genres = ["Fiction", "Poetry", "Drama", "Biography", "Philosophy", "Mystery"];
+  const genres = [
+    { english: "Drama", marathi: "नाटक" },
+    { english: "Poetry", marathi: "कविता" },
+    { english: "Novels", marathi: "कादंबरी" },
+    { english: "Short Stories", marathi: "लघुकथा" },
+    { english: "Satire", marathi: "विनोद / व्यंग" },
+    { english: "Historical", marathi: "ऐतिहासिक" },
+    { english: "Literary Criticism", marathi: "साहित्य समीक्षा" },
+    { english: "Children", marathi: "बालसाहित्य" }
+  ];
+
   const container = document.getElementById("genres");
 
   genres.forEach(g => {
     const div = document.createElement("div");
     div.className = "card";
-    div.innerHTML = `<h2>${g}</h2>`;
-    div.onclick = () => location.href = `books.html?genre=${encodeURIComponent(g)}`;
+    div.innerHTML = `<h2>${g.marathi}</h2><h3>${g.english}</h3>`;
+    div.onclick = () => location.href = `books.html?genre=${encodeURIComponent(g.english)}`;
     container.appendChild(div);
   });
 </script>
+
 </body>
 </html>
