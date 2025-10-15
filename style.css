@@ -147,24 +147,6 @@ main.grid {
   background-color: #1f467f;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 600px) {
-  main.grid {
-    padding: 2rem;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .book-card {
-    padding: 1rem;
-  }
-
-  .book-card img {
-    width: 180px;
-    height: 260px;
-  }
-}
-
 /* ---------- Home Button (Books Page) ---------- */
 .nav-btn-container {
   text-align: center;
@@ -189,6 +171,7 @@ main.grid {
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
 }
+
 /* ---------- Banner with Background Image + Parallax ---------- */
 header {
   position: relative;
@@ -213,7 +196,7 @@ header {
 header::before {
   content: '';
   position: absolute;
-  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  inset: 0;
   background: rgba(0,0,0,0.55); /* dim overlay */
   opacity: 0;
   animation: fadeIn 1.8s ease forwards;
@@ -241,7 +224,7 @@ header > *:last-child { animation-delay: 0.6s; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile adjustments */
+/* Mobile adjustments for index header */
 @media (max-width: 600px) {
   header {
     height: 160px;
@@ -250,7 +233,7 @@ header > *:last-child { animation-delay: 0.6s; }
   }
 }
 
-/* Books Page Header as top banner */
+/* ---------- Books Page Header as top banner ---------- */
 .books-header {
   position: sticky;
   top: 0;
@@ -287,4 +270,49 @@ header > *:last-child { animation-delay: 0.6s; }
   gap: 1rem;
   margin: 0 auto;
   max-width: 1000px;
+}
+
+/* ---------- Mobile Fixes for Books Page ---------- */
+@media (max-width: 600px) {
+  .books-header {
+    height: 10vh;
+    font-size: 1.3rem;
+    padding: 0 1rem;
+  }
+
+  .books-header.shrink {
+    height: 6vh;
+    font-size: 1rem;
+  }
+
+  #books-container {
+    grid-template-columns: 1fr; /* single column */
+    gap: 1rem;
+    padding: 0.5rem 1rem 1rem 1rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .card img {
+    width: 100%;
+    height: 220px;
+  }
+
+  .card h2 {
+    font-size: 1rem;
+  }
+
+  .card h3 {
+    font-size: 0.85rem;
+  }
+
+  .nav-btn-container {
+    margin: 0.8rem 0;
+    padding: 0 1rem;
+  }
 }
