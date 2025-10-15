@@ -10,7 +10,7 @@ body {
   flex-direction: column;
 }
 
-/* ---------- Header ---------- */
+/* ---------- General Header ---------- */
 header {
   background: rgba(42, 93, 159, 0.9);
   color: white;
@@ -21,7 +21,7 @@ header {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* ---------- Books Grid Page ---------- */
+/* ---------- Main grid for pages ---------- */
 main.grid {
   flex: 1;
   padding: 3rem 5%;
@@ -33,6 +33,7 @@ main.grid {
   margin: 0 auto;
 }
 
+/* ---------- Cards for Books / Genres ---------- */
 .card {
   background: rgba(255, 255, 255, 0.96);
   border-radius: 12px;
@@ -55,8 +56,8 @@ main.grid {
 
 .card img {
   width: 100%;
-  height: 260px;              /* ✅ Uniform height */
-  object-fit: cover;          /* Crop edges neatly */
+  height: 260px; /* uniform height */
+  object-fit: cover;
   border-radius: 12px 12px 0 0;
   background: #f5f5f5;
   display: block;
@@ -93,7 +94,7 @@ main.grid {
 }
 
 .book-card img {
-  width: 220px;               /* ✅ Uniform size */
+  width: 220px;
   height: 320px;
   object-fit: cover;
   border-radius: 10px;
@@ -172,14 +173,14 @@ main.grid {
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
 }
 
-/* ---------- Banner with Background Image + Parallax ---------- */
-header {
+/* ---------- Banner with Background Image + Parallax (Home Page) ---------- */
+header.home-banner {
   position: relative;
   width: 100%;
-  height: 220px; /* adjust height */
+  height: 220px;
   background: url('https://cjagroxccgawxxehdode.supabase.co/storage/v1/object/public/Book%20Cover%20Images/background%20image.png') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed; /* parallax effect */
+  background-attachment: fixed; /* parallax */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,32 +188,27 @@ header {
   font-size: 2rem;
   text-align: center;
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
-  overflow: hidden; /* prevents horizontal scrollbar */
+  overflow: hidden;
   margin: 0;
   padding: 0;
 }
 
-/* Overlay for dim effect and fade-in */
-header::before {
+header.home-banner::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55); /* dim overlay */
+  background: rgba(0,0,0,0.55);
   opacity: 0;
   animation: fadeIn 1.8s ease forwards;
   pointer-events: none;
 }
 
-/* Header text */
-header > * {
-  position: relative; /* above overlay */
+header.home-banner > * {
+  position: relative;
   z-index: 1;
   opacity: 0;
   animation: fadeInText 1.8s ease forwards;
 }
-
-header > *:first-child { animation-delay: 0.3s; }
-header > *:last-child { animation-delay: 0.6s; }
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -224,21 +220,12 @@ header > *:last-child { animation-delay: 0.6s; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Mobile adjustments for index header */
-@media (max-width: 600px) {
-  header {
-    height: 160px;
-    font-size: 1.5rem;
-    background-attachment: scroll; /* disable parallax on mobile for performance */
-  }
-}
-
-/* ---------- Books Page Header as top banner ---------- */
+/* ---------- Books Page Top Banner ---------- */
 .books-header {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 20vh; /* initial height ~20% of viewport */
+  height: 20vh; /* 20% of viewport */
   background: linear-gradient(rgba(42,93,159,0.85), rgba(42,93,159,0.95));
   color: white;
   text-align: center;
@@ -252,17 +239,16 @@ header > *:last-child { animation-delay: 0.6s; }
   transition: all 0.3s ease;
 }
 
-/* Shrink header on scroll */
 .books-header.shrink {
-  height: 8vh; /* shrinked height */
-  font-size: 1.2rem; /* smaller text */
+  height: 8vh;
+  font-size: 1.2rem;
 }
 
 .books-header h1 {
   margin: 0;
 }
 
-/* Grid spacing so content doesn't overlap header */
+/* ---------- Books Container ---------- */
 #books-container {
   padding-top: 1rem;
   display: grid;
@@ -272,11 +258,12 @@ header > *:last-child { animation-delay: 0.6s; }
   max-width: 1000px;
 }
 
-/* ---------- Mobile Fixes for Books Page ---------- */
+/* ---------- Mobile Fixes (Scoped) ---------- */
 @media (max-width: 600px) {
+  /* Books Page Header */
   .books-header {
-    height: 10vh;
-    font-size: 1.3rem;
+    height: 12vh;
+    font-size: 1.4rem;
     padding: 0 1rem;
   }
 
@@ -285,8 +272,9 @@ header > *:last-child { animation-delay: 0.6s; }
     font-size: 1rem;
   }
 
+  /* Books Container */
   #books-container {
-    grid-template-columns: 1fr; /* single column */
+    grid-template-columns: 1fr;
     gap: 1rem;
     padding: 0.5rem 1rem 1rem 1rem;
     max-width: 100%;
@@ -314,5 +302,15 @@ header > *:last-child { animation-delay: 0.6s; }
   .nav-btn-container {
     margin: 0.8rem 0;
     padding: 0 1rem;
+  }
+
+  /* Book Card Detail Mobile */
+  .book-card {
+    padding: 1rem;
+  }
+
+  .book-card img {
+    width: 180px;
+    height: 260px;
   }
 }
